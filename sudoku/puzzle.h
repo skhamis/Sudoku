@@ -2,6 +2,7 @@
 #define PUZZLE_H
 
 #include <curses.h>
+#include "cell.h"
 
 class Puzzle
 {
@@ -26,6 +27,7 @@ void moveright(void);
 
 int row, col;
 WINDOW *wnd;
+Cell cells[8][8];
 
 /* helper functions */
 

@@ -65,9 +65,12 @@ void Puzzle :: insert(char c)
 
 void Puzzle :: insertnote(char c)
 {
+	chtype ch;
+	ch = c | A_BOLD;
+
 	move(row-1, col-2);
 	delch();
-	insch(c);
+	insch(ch);
 	move(row, col);
 	refresh();
 }

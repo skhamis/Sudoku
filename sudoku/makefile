@@ -1,13 +1,14 @@
 CCC = g++
 CCFLAGS = -ansi
 
-sudoku: sudoku.o puzzle.o
-	$(CCC) -o sudoku sudoku.o puzzle.o -lcurses
+sudoku: sudoku.o puzzle.o cell.o
+	$(CCC) -o sudoku sudoku.o puzzle.o cell.o -lcurses
 
 puzzle.o: puzzle.h
 
 sudoku.o: puzzle.h
 
+cell.o: cell.h
 clean:
 	rm -f *.o
 
