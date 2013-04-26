@@ -63,6 +63,7 @@ void elimrow(int x, int y); // eliminates possibilities by row
 void elimcol(int x, int y); // eliminates possibilities by column
 void elimbox(int x, int y); // eliminates possibilities by box
 bool CompleteSolution()const; // true if answer key is complete
+bool CorrectSolution()const; // true if answer key is complete and correct
 void guess(); //Our function for guessing Algorithm
 };
 

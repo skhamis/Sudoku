@@ -300,7 +300,7 @@ void Puzzle :: make()
 
 	/* another easy puzzle */
 	/* puzzle 80 easy book */
-/*
+
 	int solution[9][9] = {
 	{5,4,0,0,0,0,0,0,0},
 	{0,0,0,7,0,0,0,0,0},
@@ -312,10 +312,9 @@ void Puzzle :: make()
 	{0,3,2,9,0,0,4,7,0},
 	{0,0,0,6,0,0,0,0,9} };
 
-*/
 	/* this is a medium puzzle that we must use the guess mode to solve */
 	/* puzzle 40 medium book */
-
+/*
 	int solution[9][9] = {
 	{1,0,0,0,8,5,0,0,7},
 	{0,0,0,0,3,0,0,0,0},
@@ -326,7 +325,7 @@ void Puzzle :: make()
 	{0,6,0,0,0,0,9,1,0},
 	{0,0,0,9,0,0,0,0,0},
 	{3,7,0,0,2,4,0,0,0} };
-
+*/
 	/* insert answer matrix into cells */
 	for(int i = 0; i < 9; i++)
 	   for(int j = 0; j < 9; j++)
@@ -335,9 +334,11 @@ void Puzzle :: make()
 		cells[i][j].setlevel(protlevel);
 		}
    /* solve */
+//while(!Correct())
    while(!CompleteSolution())
    {
    	//Solving with Smart Logic
+	changed = true;
 	while(changed)
 	{ changed = false;
 	for(int i = 0; i < 9; i++)
@@ -363,9 +364,13 @@ void Puzzle :: make()
 	{	
 		protlevel++;
 		guess();
-		changed = true;
 	}
    }
+
+	if(CorrectSolution())
+   		message("Yea boi");
+	else
+		message("Shit");
 }
 
 /************************************************/
@@ -571,6 +576,39 @@ bool Puzzle :: CompleteSolution()const
 
 }
 
+bool Puzzle :: CorrectSolution() const
+{	if(!CompleteSolution()) return false;
+	
+	int count = 0;
+	/* check rows */
+	for(int i = 0; i < 9; i++)
+	   for(int n = 1; n < 10; n++)
+	   {	for(int j = 0; j < 9; j++)
+		{	if(cells[i][j].getanswer() == n)
+				count++;
+		}
+
+		/* there can be only one */
+		if(count != 1) return false;
+		else count = 0;
+	   }
+
+	/* check columns */
+	for(int j = 0; j < 9; j++)
+	   for(int n = 1; n < 10; n++)
+	   {	for(int i = 0; i < 9; i++)
+		{	if(cells[i][j].getanswer() == n)
+				count++;
+		}
+
+		/* there can be only one */
+		if(count != 1) return false;
+		else count = 0;
+	   }
+
+	return true;
+}
+
 void Puzzle :: guess()
 {
 	int x;
@@ -582,7 +620,8 @@ void Puzzle :: guess()
 			for(x=1;x<10;x++)
 				if(cells[i][j].probability(x) == 1.0/n)
 				{
-					cells[i][j].setanswer(x);
+					cells[i][j].setanswer(x); /* assume guess is the answer */
+					cells[i][j].setnumber(x); /* save the guess in the number data field */
 					cells[i][j].setlevel(protlevel);
 					return;
 				}
