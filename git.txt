@@ -1,0 +1,11 @@
+------------------------------------------------To upload to a repository ---------------------------------------------------
+git add file
+git commit -m "comment"
+git push origin master
+
+----------------------------------------------To remove a file from a repository----------------------------------------------
+git rm -r directory
+git commit -m "Remove duplicated directory"
+git push origin master
+
+ ---------------------------------------------To pull files from another repository ----------------------------------------
